@@ -13,6 +13,12 @@ env:
   DB_NAME: test_db
   DB_SCHEMA: public
   DB_PORT: 5432
+  # Email Configuration (set these in GitHub Secrets)
+  SMTP_SERVER: smtp.gmail.com
+  SMTP_PORT: 587
+  SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+  SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+  RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
 
 jobs:
   lint-and-test:
@@ -71,6 +77,9 @@ jobs:
         
     - name: Save validation results
       run: python save_validation_results.py
+      
+    - name: Run complete test suite
+      run: python test_all.py
       
     - name: Upload artifacts
       uses: actions/upload-artifact@v3

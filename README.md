@@ -1,11 +1,27 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Dbt_project_with_cicd
 =======
 # dbt Project 2 - Data Pipeline with Soda Data Quality
+=======
+# 🚀 DBT + Soda Data Pipeline with CI/CD
+>>>>>>> 27aed56 (Initial commit with dbt and CI/CD setup)
 
-This project implements a complete data pipeline using dbt (data build tool) with Soda data quality validation, PostgreSQL storage, and CI/CD automation.
+Complete data pipeline with dbt transformations, Soda data quality validation, and automated CI/CD.
 
-## Project Structure
+## 🎯 Quick Start
+
+### Single Command Test Everything:
+```bash
+./run_tests.sh
+```
+
+### Python Test Suite:
+```bash
+python test_all.py
+```
+
+## 📊 Project Structure
 
 ```
 dbt_project_2/
@@ -20,194 +36,178 @@ dbt_project_2/
 │   └── sources.yml        # Source definitions
 ├── soda_project/          # Data quality checks
 │   ├── configuration.yml  # Database connection
-│   └── checks/
-│       └── checks.yml     # Quality checks
-├── macros/                # Custom macros
-├── snapshots/             # Data snapshots
-├── tests/                 # Custom tests
+│   └── checks/checks.yml  # Quality validation rules
 ├── .github/workflows/     # CI/CD pipeline
-├── Dockerfile            # Container configuration
-├── docker-compose.yml    # Multi-service setup
-├── requirements.txt      # Python dependencies
-├── init.sql             # Database initialization
-└── save_validation_results.py # Results storage script
+├── test_all.py           # Complete test suite
+├── save_validation_results.py # Results storage
+├── run_tests.sh          # Simple run script
+└── requirements.txt      # Dependencies
 ```
 
-## Features
+## 🧪 Testing
 
-### Data Pipeline
-- **Staging Layer**: Raw data cleaning and standardization
-- **Mart Layer**: Business-ready dimensional models
-- **Incremental Processing**: Efficient data loading for transactions
-- **Data Quality**: Comprehensive validation with Soda
+### 1. Simple Test (Recommended):
+```bash
+./run_tests.sh
+```
 
-### Data Quality Checks
-- Row count validation
-- Missing value detection
-- Duplicate identification
-- Data freshness monitoring
-- Invalid value detection
+### 2. Python Test Suite:
+```bash
+python test_all.py
+```
 
-### CI/CD Pipeline
-- Automated testing on pull requests
-- Production deployment on main branch
-- Docker containerization
-- Validation result storage
+### 3. Individual Components:
+```bash
+# dbt tests
+dbt debug && dbt compile && dbt test && dbt run
 
-## Setup Instructions
+# Soda data quality
+cd soda_project && soda scan -d postgres -c configuration.yml checks/checks.yml
 
-### Prerequisites
-- Python 3.12+
-- PostgreSQL 15+
-- Docker (optional)
-- Git
+# Save results
+python save_validation_results.py
+```
 
-### Local Development
+## 📧 Email Configuration
 
-1. **Clone and setup environment**:
-   ```bash
-   git clone <repository-url>
-   cd dbt_project_2
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+### Setup Email Notifications:
+```bash
+export SENDER_EMAIL=your-email@gmail.com
+export SENDER_PASSWORD=your-app-password
+export RECIPIENT_EMAIL=recipient@gmail.com
+```
 
-2. **Configure database connection**:
-   ```bash
-   mkdir -p ~/.dbt
-   cp profiles.yml.template ~/.dbt/profiles.yml
-   # Edit profiles.yml with your database credentials
-   ```
+### For Gmail:
+1. Enable 2-factor authentication
+2. Generate App Password
+3. Use App Password (not regular password)
 
-3. **Initialize database**:
-   ```sql
-   -- Run init.sql in your PostgreSQL database
-   ```
+## 🔄 CI/CD Pipeline
 
-4. **Run the pipeline**:
-   ```bash
-   # Test connection
-   dbt debug
-   
-   # Compile models
-   dbt compile
-   
-   # Run data quality tests
-   dbt test
-   
-   # Execute models
-   dbt run
-   
-   # Run Soda data quality checks
-   cd soda_project
-   soda scan -d postgres -c configuration.yml checks/checks.yml
-   
-   # Save validation results
-   cd ..
-   python save_validation_results.py
-   ```
+### GitHub Actions:
+- **Trigger**: Push to main/develop branches
+- **Tests**: dbt + Soda validation
+- **Deploy**: Production deployment on main
+- **Notifications**: Email alerts on completion
 
-### Docker Deployment
+### Setup GitHub Secrets:
+```
+SENDER_EMAIL=your-email@gmail.com
+SENDER_PASSWORD=your-app-password
+RECIPIENT_EMAIL=recipient@gmail.com
+```
 
-1. **Using Docker Compose**:
-   ```bash
-   docker-compose up -d
-   ```
+## 📊 Data Models
 
-2. **Manual Docker build**:
-   ```bash
-   docker build -t dbt-pipeline .
-   docker run -e DB_HOST=localhost -e DB_USER=admin -e DB_PASSWORD=admin dbt-pipeline
-   ```
+### Staging Layer:
+- `stg_customers`: Cleaned customer data
+- `stg_transactions`: Processed transaction data
 
-### CI/CD Pipeline
+### Mart Layer:
+- `dim_customers`: Customer dimension (deduped)
+- `fact_transactions`: Transaction fact (incremental)
 
-The GitHub Actions workflow automatically:
-- Runs on every push and pull request
-- Executes dbt tests and compilation
-- Performs data quality validation
-- Deploys to production on main branch
-- Saves validation results to database
+## 🔍 Data Quality Checks
 
-## Data Models
+### Soda Validations:
+- ✅ Row count validation
+- ✅ Missing value detection
+- ✅ Duplicate identification
+- ✅ Invalid value detection
+- ✅ Data freshness monitoring
 
-### Staging Models
-- `stg_customers`: Cleaned customer data with standardized fields
-- `stg_transactions`: Processed transaction data with validation
+## 🗄️ Database Schema
 
-### Mart Models
-- `dim_customers`: Customer dimension table with deduplication
-- `fact_transactions`: Transaction fact table with incremental loading
-
-## Data Quality Validation
-
-### Soda Checks
-- **Row Count**: Ensures tables have data
-- **Missing Values**: Validates required fields are populated
-- **Duplicates**: Checks for duplicate keys
-- **Data Freshness**: Monitors data recency
-- **Invalid Values**: Validates against expected value sets
-
-### Validation Storage
-Results are automatically saved to PostgreSQL tables:
+### Validation Tables:
 - `dbt_run_results`: dbt execution results
 - `soda_scan_results`: Data quality check results
+- `soda_metrics`: Metric values
 - `validation_summary`: Aggregated validation metrics
 
-## Monitoring
+## 🚀 Deployment
 
-### Database Tables
-Monitor validation results:
+### Docker:
+```bash
+docker-compose up -d
+```
+
+### Local:
+```bash
+source myenv/bin/activate
+./run_tests.sh
+```
+
+## 📈 Monitoring
+
+### Check Results:
 ```sql
--- View latest validation summary
+-- Latest validation summary
 SELECT * FROM validation_summary 
 ORDER BY validation_timestamp DESC;
 
--- Check data quality results
+-- Failed checks
 SELECT * FROM soda_scan_results 
-WHERE scan_timestamp >= CURRENT_DATE
+WHERE check_status = 'FAILED' 
 ORDER BY scan_timestamp DESC;
 ```
 
-### Logs
+## 🛠️ Troubleshooting
+
+### Common Issues:
+1. **Database Connection**: Check PostgreSQL is running
+2. **Email Not Sent**: Verify email credentials
+3. **dbt Errors**: Run `dbt debug` to check configuration
+4. **Soda Issues**: Check `configuration.yml` settings
+
+### Logs:
 - dbt logs: `logs/`
-- Soda logs: Console output
-- Docker logs: `docker-compose logs`
+- Test results: Console output
+- Database: PostgreSQL tables
 
-## Troubleshooting
+## 📝 Environment Variables
 
-### Common Issues
+```bash
+# Database
+DB_HOST=172.17.0.3
+DB_USER=admin
+DB_PASSWORD=admin
+DB_NAME=test_db
+DB_SCHEMA=public
+DB_PORT=5432
 
-1. **Database Connection**:
-   - Verify PostgreSQL is running
-   - Check connection parameters in profiles.yml
-   - Ensure database and schema exist
+# Email
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SENDER_EMAIL=your-email@gmail.com
+SENDER_PASSWORD=your-app-password
+RECIPIENT_EMAIL=recipient@gmail.com
+```
 
-2. **dbt Errors**:
-   - Run `dbt debug` to check configuration
-   - Check model syntax with `dbt compile`
-   - Review logs in `logs/` directory
+## 🎯 Features
 
-3. **Soda Issues**:
-   - Verify configuration.yml database settings
-   - Check check syntax in checks.yml
-   - Review Soda documentation for metric support
+- ✅ **Complete dbt Pipeline**: Staging → Marts
+- ✅ **Data Quality**: Soda validation
+- ✅ **CI/CD**: GitHub Actions automation
+- ✅ **Email Notifications**: Test result alerts
+- ✅ **Database Storage**: Validation results tracking
+- ✅ **Docker Support**: Containerized deployment
+- ✅ **Simple Commands**: One-command testing
 
-4. **Docker Issues**:
-   - Ensure Docker and Docker Compose are installed
-   - Check port conflicts (5432 for PostgreSQL)
-   - Review container logs
+## 📞 Support
 
-## Contributing
+For issues or questions:
+1. Check logs in `logs/` directory
+2. Review database validation tables
+3. Check email configuration
+4. Verify database connectivity
 
-1. Create feature branch from `develop`
-2. Make changes and test locally
-3. Create pull request to `main`
-4. CI/CD pipeline will validate changes
-5. Merge after approval and successful tests
+---
 
+<<<<<<< HEAD
 ## License
 
 This project is licensed under the MIT License.
 >>>>>>> 5952d8e (Initial commit: Complete dbt project with CI/CD setup)
+=======
+**🎉 Ready to use! Run `./run_tests.sh` to test everything!**
+>>>>>>> 27aed56 (Initial commit with dbt and CI/CD setup)
