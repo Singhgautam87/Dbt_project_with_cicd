@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Current customers dimension (deduped)"
+    columns:
+      - name: signup_date
+        tests:
+          - no_future_date
+
+  - name: fact_transactions
+    description: "Transactions fact (incremental)"
+    columns:
+      - name: transaction_date
+        tests:
+          - no_future_date
+

@@ -1,0 +1,10 @@
+data_source postgres:
+  type: postgres
+  connection:
+    host: 172.17.0.3
+    username: admin
+    password: admin
+    database: test_db
+    schema: public
+    port: 5432
+

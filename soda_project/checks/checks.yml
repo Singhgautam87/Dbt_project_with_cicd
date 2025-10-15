@@ -1,0 +1,16 @@
+checks for dim_customers:
+  - row_count > 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(customer_id) = 0
+  - missing_count(email) = 0
+
+checks for fact_transactions:
+  - row_count > 0
+  - missing_count(transaction_id) = 0
+  - duplicate_count(transaction_id) = 0
+  - invalid_count(status) = 0:
+      valid values: ['SUCCESS', 'FAILED', 'PENDING', 'REFUND']
+  - freshness(transaction_date) < 1d
+
+
+

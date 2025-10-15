@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: customers
+        description: "Raw customers loaded from CSV"
+        columns:
+          - name: customer_id
+            tests:
+              - not_null
+              - unique
+          - name: email
+            tests:
+              - not_null
+      - name: transactions
+        description: "Raw transactions loaded from CSV"
+        columns:
+          - name: transaction_id
+            tests:
+              - not_null
+              - unique
+          - name: customer_id
+            tests:
+              - not_null
+          - name: transaction_date
+            tests:
+              - not_null
