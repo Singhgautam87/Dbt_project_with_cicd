@@ -168,7 +168,7 @@ ORDER BY scan_timestamp DESC;
 
 ```bash
 # Database
-DB_HOST=172.17.0.3
+DB_HOST=localhost
 DB_USER=admin
 DB_PASSWORD=admin
 DB_NAME=test_db
