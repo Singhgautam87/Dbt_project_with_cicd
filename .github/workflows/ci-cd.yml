@@ -50,7 +50,7 @@ jobs:
               host: \${{ env.DB_HOST }}
               user: \${{ env.DB_USER }}
               password: \${{ env.DB_PASSWORD }}
-              port: \${{ env.DB_PORT }}
+              port: ${{ env.DB_PORT }}
               dbname: \${{ env.DB_NAME }}
               schema: \${{ env.DB_SCHEMA }}
               threads: 4
@@ -118,7 +118,7 @@ jobs:
               host: \${{ env.DB_HOST }}
               user: \${{ env.DB_USER }}
               password: \${{ env.DB_PASSWORD }}
-              port: \${{ env.DB_PORT }}
+              port: ${{ env.DB_PORT }}
               dbname: \${{ env.DB_NAME }}
               schema: \${{ env.DB_SCHEMA }}
               threads: 4
