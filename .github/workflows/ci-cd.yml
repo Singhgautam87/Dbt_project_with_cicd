@@ -47,15 +47,15 @@ jobs:
           outputs:
             dev:
               type: postgres
-              host: \${{ env.DB_HOST }}
-              user: \${{ env.DB_USER }}
-              password: \${{ env.DB_PASSWORD }}
+              host: ${{ env.DB_HOST }}
+              user: ${{ env.DB_USER }}
+              password: ${{ env.DB_PASSWORD }}
               port: ${{ env.DB_PORT }}
-              dbname: \${{ env.DB_NAME }}
-              schema: \${{ env.DB_SCHEMA }}
+              dbname: ${{ env.DB_NAME }}
+              schema: ${{ env.DB_SCHEMA }}
               threads: 4
               keepalives_idle: 0
-              search_path: \${{ env.DB_SCHEMA }}
+              search_path: ${{ env.DB_SCHEMA }}
         EOF
         
     - name: dbt debug
@@ -115,15 +115,15 @@ jobs:
           outputs:
             prod:
               type: postgres
-              host: \${{ env.DB_HOST }}
-              user: \${{ env.DB_USER }}
-              password: \${{ env.DB_PASSWORD }}
+              host: ${{ env.DB_HOST }}
+              user: ${{ env.DB_USER }}
+              password: ${{ env.DB_PASSWORD }}
               port: ${{ env.DB_PORT }}
-              dbname: \${{ env.DB_NAME }}
-              schema: \${{ env.DB_SCHEMA }}
+              dbname: ${{ env.DB_NAME }}
+              schema: ${{ env.DB_SCHEMA }}
               threads: 4
               keepalives_idle: 0
-              search_path: \${{ env.DB_SCHEMA }}
+              search_path: ${{ env.DB_SCHEMA }}
         EOF
         
     - name: Deploy to production
